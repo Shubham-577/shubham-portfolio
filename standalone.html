@@ -1,0 +1,2278 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shubham Sharma â€” Computer Science Student, AI & Software Developer. A Song of Ice and Code Portfolio.">
+  <title>Shubham Sharma | A Song of Ice and Code</title>
+  
+  <!-- Favicon / Sigil Icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 5 L90 25 L90 75 L50 95 L10 75 L10 25 Z' fill='%230e131d' stroke='%237ae5ff' stroke-width='4'/><path d='M50 20 L50 80 M30 40 L70 40 M35 60 L65 60' stroke='%23ff9d3b' stroke-width='3'/></svg>">
+
+  <!-- Stylesheet -->
+  <style>
+/* ==========================================================================
+   A SONG OF ICE AND CODE - PORTFOLIO DESIGN SYSTEM
+   Aesthetic: Game of Thrones / Dark Cinematic Medieval Fantasy
+   Author: Shubham Sharma
+   ========================================================================== */
+
+/* --- GOOGLE FONTS IMPORT --- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;900&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* --- DESIGN TOKENS & CSS VARIABLES --- */
+:root {
+  /* The Void & Obsidian Palette */
+  --bg-deep-void: #050608;
+  --bg-obsidian: #0b0d12;
+  --bg-obsidian-surface: #11141c;
+  --bg-card: rgba(15, 18, 25, 0.72);
+  --bg-card-hover: rgba(22, 28, 40, 0.88);
+  --bg-parchment: rgba(26, 21, 16, 0.75);
+
+  /* Stark Ice (The Wall & Winter) */
+  --ice-core: #7ae5ff;
+  --ice-light: #c2f3ff;
+  --ice-dim: rgba(122, 229, 255, 0.22);
+  --ice-border: rgba(122, 229, 255, 0.28);
+  --ice-glow: 0 0 25px rgba(122, 229, 255, 0.35);
+
+  /* Dragon Fire & Gold (Valyria & Targaryen) */
+  --fire-amber: #ff9d3b;
+  --fire-gold: #ffd166;
+  --fire-red: #ff4d2e;
+  --fire-dim: rgba(255, 157, 59, 0.2);
+  --fire-border: rgba(255, 157, 59, 0.32);
+  --fire-glow: 0 0 25px rgba(255, 100, 30, 0.45);
+
+  /* Valyrian Steel & Silver */
+  --valyrian-bright: #f0f4f8;
+  --valyrian-steel: #b8c4ce;
+  --valyrian-muted: #73808c;
+  --border-subtle: rgba(160, 180, 205, 0.12);
+
+  /* Typography */
+  --font-heading-ornate: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+  --font-heading: 'Cinzel', Georgia, serif;
+  --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Layout & Spacing */
+  --max-width: 1200px;
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.25s ease;
+}
+
+/* --- RESET & GLOBAL BASE --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  background-color: var(--bg-deep-void);
+  font-family: var(--font-body);
+  color: var(--valyrian-steel);
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  background-color: var(--bg-deep-void);
+  min-height: 100vh;
+  line-height: 1.7;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(20, 35, 55, 0.35) 0%, transparent 60%),
+    radial-gradient(circle at 10% 50%, rgba(35, 15, 10, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 90% 85%, rgba(10, 25, 45, 0.25) 0%, transparent 50%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep-void);
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2432;
+  border-radius: 4px;
+  border: 1px solid rgba(122, 229, 255, 0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2d374d;
+  box-shadow: 0 0 10px rgba(122, 229, 255, 0.4);
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 105, 30, 0.35);
+  color: var(--fire-gold);
+}
+
+/* ==========================================================================
+   CANVAS BACKGROUND ANIMATION (Winter Snow & Dragon Embers)
+   ========================================================================== */
+#ambient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Noise texture & fog overlay */
+.vignette-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(circle at center, transparent 35%, rgba(4, 5, 7, 0.75) 85%, rgba(2, 3, 4, 0.95) 100%);
+}
+
+/* ==========================================================================
+   NAVIGATION BAR
+   ========================================================================== */
+.realm-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1.25rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(122, 229, 255, 0.08);
+  background: rgba(6, 8, 12, 0.65);
+}
+
+.realm-nav.scrolled {
+  padding: 0.85rem 2.5rem;
+  background: rgba(6, 8, 12, 0.92);
+  border-bottom: 1px solid rgba(122, 229, 255, 0.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: var(--valyrian-bright);
+}
+
+.brand-sigil {
+  width: 34px;
+  height: 34px;
+  filter: drop-shadow(0 0 8px rgba(122, 229, 255, 0.5));
+  transition: transform var(--transition-fast), filter var(--transition-fast);
+}
+
+.nav-brand:hover .brand-sigil {
+  transform: rotate(45deg) scale(1.1);
+  filter: drop-shadow(0 0 12px var(--fire-amber));
+}
+
+.brand-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, var(--ice-core) 60%, var(--fire-amber) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2.2rem;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--valyrian-steel);
+  position: relative;
+  padding: 0.4rem 0.2rem;
+  transition: color var(--transition-fast);
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ice-core), var(--fire-amber));
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px var(--ice-core);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--valyrian-bright);
+}
+
+.nav-link:hover::before, .nav-link.active::before {
+  width: 100%;
+}
+
+.audio-toggle-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--valyrian-steel);
+  transition: all var(--transition-fast);
+}
+
+.audio-toggle-btn:hover {
+  border-color: var(--fire-amber);
+  color: var(--fire-gold);
+  box-shadow: 0 0 15px rgba(255, 157, 59, 0.3);
+  transform: scale(1.08);
+}
+
+/* Mobile Hamburger */
+.mobile-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.hamburger-line {
+  display: block;
+  width: 26px;
+  height: 2px;
+  margin: 5px 0;
+  background: var(--valyrian-bright);
+  transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   GLOBAL LAYOUT CONTAINERS & HERALDIC ORNAMENTS
+   ========================================================================== */
+.realm-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.section-wrapper {
+  padding: 7.5rem 0;
+  position: relative;
+}
+
+/* Medieval Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--fire-amber);
+  margin-bottom: 0.75rem;
+}
+
+.section-tag::before, .section-tag::after {
+  content: 'â—†';
+  font-size: 0.55rem;
+  color: var(--fire-amber);
+  opacity: 0.7;
+}
+
+.section-title {
+  font-family: var(--font-heading-ornate);
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--valyrian-bright);
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 0 auto;
+  max-width: 450px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(122, 229, 255, 0.4), transparent);
+}
+
+.divider-sigil {
+  width: 24px;
+  height: 24px;
+  color: var(--ice-core);
+  filter: drop-shadow(0 0 6px rgba(122, 229, 255, 0.6));
+}
+
+.section-subtitle {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  color: var(--valyrian-muted);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   BUTTONS (Valyrian Steel & Dragon Fire Embers)
+   ========================================================================== */
+.btn-valyrian {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.95rem 2.2rem;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #08090d;
+  background: linear-gradient(135deg, #ffd166 0%, #ff9d3b 50%, #ff5e36 100%);
+  border: 1px solid rgba(255, 220, 150, 0.6);
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 120, 40, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: all 0.35s ease;
+  z-index: 1;
+}
+
+/* Sword Slash Sheen Effect */
+.btn-valyrian::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -120%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 35%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.15) 65%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  transition: all 0.75s ease;
+  pointer-events: none;
+}
+
+.btn-valyrian:hover::after {
+  left: 160%;
+}
+
+.btn-valyrian:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(255, 120, 40, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  color: #000;
+}
+
+/* Secondary Button - Stark Ice Blade */
+.btn-ice {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.95rem 2.2rem;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ice-light);
+  background: rgba(14, 22, 35, 0.65);
+  border: 1px solid var(--ice-border);
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  transition: all 0.35s ease;
+}
+
+.btn-ice::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -120%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 0%,
+    rgba(122, 229, 255, 0.2) 40%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(122, 229, 255, 0.2) 60%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  transition: all 0.75s ease;
+  pointer-events: none;
+}
+
+.btn-ice:hover::after {
+  left: 160%;
+}
+
+.btn-ice:hover {
+  border-color: var(--ice-core);
+  background: rgba(20, 36, 58, 0.8);
+  box-shadow: var(--ice-glow);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   1. HERO SECTION (The Iron Throne)
+   ========================================================================== */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5rem;
+  position: relative;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  z-index: 2;
+  position: relative;
+}
+
+/* Crest Badge */
+.hero-crest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.4rem;
+  margin-bottom: 2rem;
+  background: rgba(14, 18, 26, 0.8);
+  border: 1px solid rgba(122, 229, 255, 0.2);
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  animation: floatCrest 4s ease-in-out infinite alternate;
+}
+
+@keyframes floatCrest {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-5px); }
+}
+
+.crest-sigil-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--fire-amber);
+}
+
+.crest-text {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--valyrian-steel);
+}
+
+/* Main Hero Title */
+.hero-title {
+  font-family: var(--font-heading-ornate);
+  font-size: clamp(2.8rem, 7.5vw, 5.5rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  position: relative;
+}
+
+.hero-title span.name-ice {
+  display: inline-block;
+  background: linear-gradient(180deg, #ffffff 20%, #b2eaf8 65%, #62c3dd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 25px rgba(122, 229, 255, 0.3));
+}
+
+.hero-title span.name-fire {
+  display: inline-block;
+  background: linear-gradient(180deg, #ffffff 15%, #ffd166 50%, #ff8326 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 25px rgba(255, 140, 40, 0.35));
+  margin-left: 0.25em;
+}
+
+/* Subtitle with Runes */
+.hero-subtitle-box {
+  display: inline-block;
+  position: relative;
+  padding: 0.75rem 2rem;
+  margin-bottom: 2.75rem;
+  border-top: 1px solid rgba(122, 229, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 157, 59, 0.15);
+}
+
+.hero-subtitle {
+  font-family: var(--font-heading);
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--valyrian-bright);
+  font-weight: 500;
+}
+
+.hero-subtitle .bullet {
+  color: var(--fire-amber);
+  margin: 0 0.5rem;
+  font-size: 0.8em;
+}
+
+/* Hero CTA group */
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--valyrian-muted);
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  color: var(--ice-core);
+}
+
+.blade-chevron {
+  width: 20px;
+  height: 20px;
+  stroke: var(--ice-core);
+  animation: pulseChevron 2s infinite ease-in-out;
+}
+
+@keyframes pulseChevron {
+  0% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(8px); opacity: 1; filter: drop-shadow(0 0 6px var(--ice-core)); }
+  100% { transform: translateY(0); opacity: 0.4; }
+}
+
+/* ==========================================================================
+   2. ABOUT ME SECTION (The Lore)
+   ========================================================================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Obsidian Parchment Stone Slab */
+.lore-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 3rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.lore-card:hover {
+  border-color: rgba(122, 229, 255, 0.3);
+  transform: translateY(-3px);
+}
+
+/* Runed Metal Corners */
+.corner-ornament {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--ice-core);
+  opacity: 0.6;
+  pointer-events: none;
+}
+.corner-tl { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+.corner-tr { top: 6px; right: 6px; border-left: none; border-bottom: none; }
+.corner-bl { bottom: 6px; left: 6px; border-right: none; border-top: none; }
+.corner-br { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+
+.lore-quote-lead {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  color: var(--fire-amber);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  border-left: 3px solid var(--fire-amber);
+  padding-left: 1.25rem;
+}
+
+.lore-paragraph {
+  font-size: 1.05rem;
+  color: var(--valyrian-steel);
+  margin-bottom: 1.75rem;
+  line-height: 1.85;
+  font-weight: 300;
+}
+
+.lore-paragraph strong {
+  color: var(--valyrian-bright);
+  font-weight: 600;
+}
+
+.lore-paragraph .highlight-ice {
+  color: var(--ice-core);
+  font-weight: 500;
+}
+
+.lore-paragraph .highlight-fire {
+  color: var(--fire-gold);
+  font-weight: 500;
+}
+
+/* Citadel Sigil / Forge Pillars */
+.lore-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.pillar-card {
+  background: rgba(14, 18, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.pillar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--ice-core), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pillar-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(122, 229, 255, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+}
+
+.pillar-card:hover::before {
+  opacity: 1;
+}
+
+.pillar-icon-box {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: rgba(122, 229, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ice-core);
+  border: 1px solid rgba(122, 229, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.pillar-card:nth-child(2) .pillar-icon-box {
+  background: rgba(255, 157, 59, 0.08);
+  color: var(--fire-amber);
+  border-color: rgba(255, 157, 59, 0.2);
+}
+
+.pillar-card:hover .pillar-icon-box {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px currentColor;
+}
+
+.pillar-title {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--valyrian-bright);
+  margin-bottom: 0.35rem;
+}
+
+.pillar-desc {
+  font-size: 0.82rem;
+  color: var(--valyrian-muted);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   3. INTERESTS & HOBBIES (The Strategist)
+   ========================================================================== */
+.tactics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.tactic-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 2.5rem 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.tactic-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, var(--glow-color, rgba(122, 229, 255, 0.15)), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.tactic-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-hover-color, rgba(122, 229, 255, 0.35));
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+.tactic-card:hover::after {
+  opacity: 1;
+}
+
+/* Individual Card Themes */
+.tactic-chess {
+  --glow-color: rgba(122, 229, 255, 0.18);
+  --border-hover-color: rgba(122, 229, 255, 0.4);
+}
+.tactic-cinema {
+  --glow-color: rgba(255, 157, 59, 0.18);
+  --border-hover-color: rgba(255, 157, 59, 0.4);
+}
+.tactic-editing {
+  --glow-color: rgba(255, 77, 46, 0.18);
+  --border-hover-color: rgba(255, 77, 46, 0.4);
+}
+.tactic-ai {
+  --glow-color: rgba(174, 134, 255, 0.18);
+  --border-hover-color: rgba(174, 134, 255, 0.4);
+}
+
+.tactic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.tactic-sigil {
+  width: 52px;
+  height: 52px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.tactic-card:hover .tactic-sigil {
+  transform: scale(1.1) rotate(4deg);
+}
+
+.tactic-chess .tactic-sigil { color: var(--ice-core); border-color: rgba(122, 229, 255, 0.25); }
+.tactic-cinema .tactic-sigil { color: var(--fire-amber); border-color: rgba(255, 157, 59, 0.25); }
+.tactic-editing .tactic-sigil { color: var(--fire-red); border-color: rgba(255, 77, 46, 0.25); }
+.tactic-ai .tactic-sigil { color: #b78eff; border-color: rgba(183, 142, 255, 0.25); }
+
+.tactic-rank {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--valyrian-muted);
+  text-transform: uppercase;
+}
+
+.tactic-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  color: var(--valyrian-bright);
+  margin-bottom: 0.4rem;
+}
+
+.tactic-alias {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  color: var(--fire-amber);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.tactic-chess .tactic-alias { color: var(--ice-core); }
+.tactic-ai .tactic-alias { color: #b78eff; }
+
+.tactic-desc {
+  font-size: 0.95rem;
+  color: var(--valyrian-steel);
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+  flex-grow: 1;
+}
+
+/* Strategic Badges / Traits */
+.tactic-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1.25rem;
+}
+
+.trait-tag {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--valyrian-steel);
+  transition: all 0.25s ease;
+}
+
+.tactic-card:hover .trait-tag {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--valyrian-bright);
+}
+
+/* ==========================================================================
+   4. CONTACT SECTION (Send a Raven)
+   ========================================================================== */
+.contact-section {
+  position: relative;
+}
+
+.raven-scroll-card {
+  max-width: 850px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, rgba(16, 20, 28, 0.88), rgba(9, 12, 17, 0.95));
+  border: 1px solid rgba(255, 180, 80, 0.2);
+  border-radius: 6px;
+  padding: 3.5rem 3rem;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.85),
+    inset 0 0 40px rgba(0, 0, 0, 0.6);
+  position: relative;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Dragon Wax Seal */
+.wax-seal {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #d63031 0%, #a01010 60%, #680505 100%);
+  border: 2px solid rgba(255, 120, 100, 0.4);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.7),
+    0 0 15px rgba(214, 48, 49, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffcccc;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 10;
+}
+
+.wax-seal:hover {
+  transform: translateX(-50%) scale(1.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 80, 60, 0.65);
+}
+
+.seal-icon {
+  width: 32px;
+  height: 32px;
+}
+
+/* Contact Fast Channels */
+.contact-channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.75rem;
+}
+
+.channel-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(8, 11, 16, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.channel-card:hover {
+  border-color: var(--fire-amber);
+  background: rgba(18, 24, 34, 0.85);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 157, 59, 0.2);
+}
+
+.channel-icon-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fire-amber);
+  border: 1px solid rgba(255, 157, 59, 0.25);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.channel-card:hover .channel-icon-wrap {
+  background: var(--fire-amber);
+  color: #080a0e;
+  box-shadow: 0 0 15px var(--fire-amber);
+}
+
+.channel-info {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.channel-label {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--valyrian-muted);
+  margin-bottom: 0.2rem;
+}
+
+.channel-value {
+  font-size: 0.88rem;
+  color: var(--valyrian-bright);
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.channel-action-hint {
+  font-size: 0.72rem;
+  color: var(--fire-amber);
+  font-family: var(--font-heading);
+  letter-spacing: 0.1em;
+  margin-top: 0.2rem;
+}
+
+/* Dispatch Form */
+.raven-form {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 2.25rem;
+}
+
+.form-group-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-control {
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--valyrian-steel);
+  margin-bottom: 0.5rem;
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 0.95rem 1.15rem;
+  background: rgba(6, 8, 12, 0.8);
+  border: 1px solid rgba(160, 180, 205, 0.18);
+  border-radius: 3px;
+  color: var(--valyrian-bright);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--ice-core);
+  box-shadow: 0 0 15px rgba(122, 229, 255, 0.25);
+  background: rgba(10, 14, 20, 0.95);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.form-status {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  letter-spacing: 0.15em;
+  color: var(--ice-core);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.form-status.show {
+  opacity: 1;
+}
+
+/* Flight Animation Feedback */
+.raven-flight-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 4, 6, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.raven-flight-modal.active {
+  display: flex;
+}
+
+.raven-modal-card {
+  background: var(--bg-card-hover);
+  border: 1px solid var(--fire-border);
+  padding: 3rem 2.5rem;
+  border-radius: 6px;
+  text-align: center;
+  max-width: 480px;
+  box-shadow: var(--fire-glow);
+  position: relative;
+  animation: modalEnter 0.4s ease-out;
+}
+
+@keyframes modalEnter {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.raven-flight-icon {
+  width: 68px;
+  height: 68px;
+  color: var(--fire-amber);
+  margin-bottom: 1.25rem;
+  animation: flapWings 1.2s infinite ease-in-out;
+}
+
+@keyframes flapWings {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(-3deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.raven-modal-title {
+  font-family: var(--font-heading-ornate);
+  font-size: 1.6rem;
+  color: var(--valyrian-bright);
+  margin-bottom: 0.5rem;
+}
+
+.raven-modal-desc {
+  font-size: 0.95rem;
+  color: var(--valyrian-steel);
+  margin-bottom: 1.75rem;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.realm-footer {
+  border-top: 1px solid rgba(122, 229, 255, 0.1);
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  background: rgba(4, 5, 7, 0.85);
+}
+
+.motto-banner {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--valyrian-muted);
+  margin-bottom: 1rem;
+}
+
+.motto-banner span {
+  color: var(--fire-amber);
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  color: var(--valyrian-muted);
+  font-weight: 300;
+}
+
+.footer-back-to-top {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ice-core);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.footer-back-to-top:hover {
+  color: var(--ice-light);
+  text-shadow: 0 0 10px var(--ice-core);
+}
+
+/* ==========================================================================
+   ANIMATION REVEAL UTILITIES (IntersectionObserver)
+   ========================================================================== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.revealed {
+  opacity: 1 !important;
+  transform: translate(0, 0) !important;
+}
+
+/* Stagger delay classes */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 992px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .realm-nav {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: rgba(8, 10, 15, 0.98);
+    flex-direction: column;
+    padding: 2.5rem 1.5rem;
+    gap: 1.75rem;
+    border-bottom: 1px solid rgba(122, 229, 255, 0.15);
+    backdrop-filter: blur(20px);
+    clip-path: circle(0% at top right);
+    transition: clip-path 0.4s ease-in-out;
+  }
+
+  .nav-links.open {
+    clip-path: circle(150% at top right);
+  }
+
+  .form-group-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-valyrian, .btn-ice {
+    width: 100%;
+  }
+
+  .lore-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .lore-pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .raven-scroll-card {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- Fullscreen Ambient Canvas: Ice Snow & Dragonfire Embers -->
+  <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Atmospheric Vignette & Fog Gradient -->
+  <div class="vignette-overlay" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <nav class="realm-nav" aria-label="Main Navigation">
+    <a href="#iron-throne" class="nav-brand">
+      <!-- House Sigil Icon -->
+      <svg class="brand-sigil" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="20,2 38,12 38,28 20,38 2,28 2,12" stroke="currentColor" stroke-width="2" fill="rgba(14, 20, 30, 0.8)"/>
+        <path d="M20 7 V33 M10 16 H30 M13 24 H27" stroke="#ff9d3b" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="3" fill="#7ae5ff"/>
+      </svg>
+      <span class="brand-title">House Sharma</span>
+    </a>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+      <li><a href="#iron-throne" class="nav-link active">The Throne</a></li>
+      <li><a href="#lore" class="nav-link">The Lore</a></li>
+      <li><a href="#strategist" class="nav-link">The Strategist</a></li>
+      <li><a href="#raven" class="nav-link">Send a Raven</a></li>
+      <li>
+        <!-- Ambient Sound Effect Toggle -->
+        <button id="sound-toggle" class="audio-toggle-btn" title="Enable Valyrian Soundscapes" aria-pressed="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+      </li>
+    </ul>
+
+    <!-- Mobile Navigation Toggle -->
+    <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </nav>
+
+  <!-- ==========================================================================
+       1. HERO SECTION (The Iron Throne)
+       ========================================================================== -->
+  <header id="iron-throne" class="hero-section">
+    <div class="realm-container hero-content">
+      
+      <!-- Realm Crest Motto -->
+      <div class="hero-crest-badge fade-up">
+        <svg class="crest-sigil-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+        </svg>
+        <span class="crest-text">A Song of Ice and Code &bull; Winter is Here</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="hero-title fade-up delay-1">
+        <span class="name-ice">Shubham</span>
+        <span class="name-fire">Sharma</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <div class="hero-subtitle-box fade-up delay-2">
+        <p class="hero-subtitle">
+          Computer Science Student <span class="bullet">&bull;</span>
+          Tech Enthusiast <span class="bullet">&bull;</span>
+          AI &amp; Software Developer
+        </p>
+      </div>
+
+      <!-- Actions -->
+      <div class="hero-actions fade-up delay-3">
+        <a href="#lore" class="btn-valyrian">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15 8 21 9 17 14 18 20 12 17 6 20 7 14 3 9 9 8 12 2"/>
+          </svg>
+          <span>View My Realm</span>
+        </a>
+
+        <a href="#raven" class="btn-ice">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+          <span>Send a Raven</span>
+        </a>
+      </div>
+
+      <!-- Scroll Down Indicator -->
+      <a href="#lore" class="scroll-indicator fade-up delay-4" aria-label="Descend into the realm lore">
+        <span>Descend Into The Lore</span>
+        <svg class="blade-chevron" viewBox="0 0 24 24" fill="none">
+          <path d="M6 9L12 15L18 9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       2. ABOUT ME SECTION (The Lore)
+       ========================================================================== -->
+  <section id="lore" class="section-wrapper">
+    <div class="realm-container">
+      
+      <!-- Section Header -->
+      <div class="section-header fade-up">
+        <div class="section-tag">Chapter I</div>
+        <h2 class="section-title">The Lore</h2>
+        <div class="section-divider">
+          <span class="divider-line"></span>
+          <svg class="divider-sigil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L14 9H21L15.5 13.5L17.5 20.5L12 16L6.5 20.5L8.5 13.5L3 9H10L12 2Z"/>
+          </svg>
+          <span class="divider-line"></span>
+        </div>
+        <p class="section-subtitle">Forged in the academic citadels of Jaipur, dedicated to mastering the logic of cold silicon and neural dragonfire.</p>
+      </div>
+
+      <!-- Grid: Lore Narrative Slab & Pillar Cards -->
+      <div class="about-grid">
+        
+        <!-- Obsidian Stone Slab (Primary Narrative) -->
+        <article class="lore-card fade-left">
+          <!-- Runed Corner Accents -->
+          <span class="corner-ornament corner-tl"></span>
+          <span class="corner-ornament corner-tr"></span>
+          <span class="corner-ornament corner-bl"></span>
+          <span class="corner-ornament corner-br"></span>
+
+          <p class="lore-quote-lead">
+            "A mind needs code as a sword needs a whetstone, if it is to keep its edge."
+          </p>
+
+          <p class="lore-paragraph">
+            I am currently pursuing my <strong>Computer Science Core degree</strong> at <span class="highlight-ice">JECRC University, Jaipur</span>. I am a passionate tech enthusiast dedicated to forging robust software and exploring the uncharted territories of <span class="highlight-fire">AI development</span>. Beyond the code, I have a strong creative eye for <span class="highlight-ice">video editing</span>.
+          </p>
+
+          <p class="lore-paragraph">
+            Like a blacksmith hammering Valyrian steel, I treat every line of code as an artifact of precision. From architecting responsive, high-performance web systems to engineering intelligent algorithmic models, I bridge the raw structural discipline of the North with the fiery ambition of creative visual storytelling.
+          </p>
+
+          <div style="margin-top: 2rem;">
+            <a href="#strategist" class="btn-ice" style="padding: 0.75rem 1.6rem; font-size: 0.78rem;">
+              <span>Inspect The Strategy</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Pillars of Mastery -->
+        <div class="lore-pillars fade-right">
+          
+          <!-- Pillar 1: The Citadel -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">The Citadel</h3>
+            <p class="pillar-desc">JECRC University, Jaipur &bull; B.Tech Computer Science Core Foundations.</p>
+          </div>
+
+          <!-- Pillar 2: AI Frontiers -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+                <rect x="9" y="9" width="6" height="6"/>
+                <line x1="9" y1="1" x2="9" y2="4"/>
+                <line x1="15" y1="1" x2="15" y2="4"/>
+                <line x1="9" y1="20" x2="9" y2="23"/>
+                <line x1="15" y1="20" x2="15" y2="23"/>
+                <line x1="20" y1="9" x2="23" y2="9"/>
+                <line x1="20" y1="14" x2="23" y2="14"/>
+                <line x1="1" y1="9" x2="4" y2="9"/>
+                <line x1="1" y1="14" x2="4" y2="14"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">AI &amp; Neural Craft</h3>
+            <p class="pillar-desc">Forging machine intelligence, neural exploration, and smart automated agents.</p>
+          </div>
+
+          <!-- Pillar 3: Software Forge -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+                <line x1="14" y1="4" x2="10" y2="20"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Valyrian Code</h3>
+            <p class="pillar-desc">Full-stack resilience, scalable logic, and robust architectural frameworks.</p>
+          </div>
+
+          <!-- Pillar 4: Visual Storytelling -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="10 8 16 12 10 16 10 8"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Visual Direction</h3>
+            <p class="pillar-desc">Cinematic video editing, pacing, color grading, and evocative audiovisual impact.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       3. INTERESTS & HOBBIES SECTION (The Strategist)
+       ========================================================================== */ -->
+  <section id="strategist" class="section-wrapper">
+    <div class="realm-container">
+      
+      <!-- Section Header -->
+      <div class="section-header fade-up">
+        <div class="section-tag">Chapter II</div>
+        <h2 class="section-title">The Strategist</h2>
+        <div class="section-divider">
+          <span class="divider-line"></span>
+          <svg class="divider-sigil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L15 8L22 9L17 14L18 21L12 17.5L6 21L7 14L2 9L9 8L12 2Z"/>
+          </svg>
+          <span class="divider-line"></span>
+        </div>
+        <p class="section-subtitle">Tactics are forged on the board; imagination is unlocked through the silver screen.</p>
+      </div>
+
+      <!-- Tactics & Hobbies Grid -->
+      <div class="tactics-grid">
+        
+        <!-- Card 1: Chess & Strategy -->
+        <article class="tactic-card tactic-chess fade-up delay-1">
+          <div class="tactic-header">
+            <div class="tactic-sigil" aria-hidden="true">
+              <!-- Knight Chess Piece SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 20H5v-2c0-.6.4-1 1-1h1v-2c0-.7.3-1.4.8-1.9L11 10.5V9a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1l1.2 1.2c.5.5.8 1.2.8 1.9v2h1c.6 0 1 .4 1 1v2z"/>
+                <path d="M10 6c0-1.7 1.3-3 3-3s3 1.3 3 3"/>
+                <circle cx="12" cy="13" r="1"/>
+              </svg>
+            </div>
+            <span class="tactic-rank">Tactic &bull; 01</span>
+          </div>
+
+          <h3 class="tactic-title">The Grandmaster's Board</h3>
+          <div class="tactic-alias">Strategic Thinking &amp; Chess</div>
+
+          <p class="tactic-desc">
+            I hone my strategic thinking and foresight through <strong>Chess</strong>. On the 64 squares, every move is calculated multiple steps in advance. Like debugging intricate system logic, chess teaches patience, spatial pattern recognition, resource trade-offs, and how to turn defensive pressure into an unstoppable offensive endgame.
+          </p>
+
+          <div class="tactic-traits">
+            <span class="trait-tag">Deep Foresight</span>
+            <span class="trait-tag">Tactical Trade-offs</span>
+            <span class="trait-tag">Endgame Mastery</span>
+          </div>
+        </article>
+
+        <!-- Card 2: Cinema & Visual Storytelling -->
+        <article class="tactic-card tactic-cinema fade-up delay-2">
+          <div class="tactic-header">
+            <div class="tactic-sigil" aria-hidden="true">
+              <!-- Film Reel / Cinema SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                <line x1="7" y1="2" x2="7" y2="22"/>
+                <line x1="17" y1="2" x2="17" y2="22"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <line x1="2" y1="7" x2="7" y2="7"/>
+                <line x1="2" y1="17" x2="7" y2="17"/>
+                <line x1="17" y1="17" x2="22" y2="17"/>
+                <line x1="17" y1="7" x2="22" y2="7"/>
+              </svg>
+            </div>
+            <span class="tactic-rank">Lore &bull; 02</span>
+          </div>
+
+          <h3 class="tactic-title">The Chronicler's Lens</h3>
+          <div class="tactic-alias">Cinema &amp; Visual Storytelling</div>
+
+          <p class="tactic-desc">
+            I study the nuanced art of <strong>visual storytelling by watching movies</strong>. Cinema is more than entertainmentâ€”it is a masterclass in framing, mood curation, visual metaphors, lighting balance, and emotional resonance. Deconstructing how legendary directors craft worlds fuels how I design rich, atmospheric user interfaces.
+          </p>
+
+          <div class="tactic-traits">
+            <span class="trait-tag">Narrative Pacing</span>
+            <span class="trait-tag">Atmospheric Lighting</span>
+            <span class="trait-tag">Cinematic Framing</span>
+          </div>
+        </article>
+
+        <!-- Card 3: Creative Video Editing -->
+        <article class="tactic-card tactic-editing fade-up delay-3">
+          <div class="tactic-header">
+            <div class="tactic-sigil" aria-hidden="true">
+              <!-- Video Editing Scissors / Razor Blade SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <line x1="20" y1="4" x2="8.12" y2="15.88"/>
+                <line x1="14.47" y1="14.48" x2="20" y2="20"/>
+                <line x1="8.12" y1="8.12" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <span class="tactic-rank">Craft &bull; 03</span>
+          </div>
+
+          <h3 class="tactic-title">The Forge of Frames</h3>
+          <div class="tactic-alias">Video Editing &amp; Motion Design</div>
+
+          <p class="tactic-desc">
+            Equipped with a meticulous creative eye, I cut and assemble raw footage into rhythmic visual narratives. From precise jump cuts to evocative color grades and sound design synchronization, video editing is where algorithmic precision meets unfiltered artistic storytelling.
+          </p>
+
+          <div class="tactic-traits">
+            <span class="trait-tag">Dynamic Pacing</span>
+            <span class="trait-tag">Color Grading</span>
+            <span class="trait-tag">Sound Synthesis</span>
+          </div>
+        </article>
+
+        <!-- Card 4: AI & Software Development -->
+        <article class="tactic-card tactic-ai fade-up delay-4">
+          <div class="tactic-header">
+            <div class="tactic-sigil" aria-hidden="true">
+              <!-- Arcane Matrix / AI Rune SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <span class="tactic-rank">Sorcery &bull; 04</span>
+          </div>
+
+          <h3 class="tactic-title">The Arcane Algorithms</h3>
+          <div class="tactic-alias">AI Exploration &amp; Software</div>
+
+          <p class="tactic-desc">
+            Pushing the boundaries of the digital realm through machine learning models, intelligent heuristics, and full-stack software development. Constantly analyzing novel architectures to forge resilient, autonomous applications that serve real-world quests.
+          </p>
+
+          <div class="tactic-traits">
+            <span class="trait-tag">Autonomous Systems</span>
+            <span class="trait-tag">Machine Learning</span>
+            <span class="trait-tag">Clean Architecture</span>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       4. CONTACT SECTION (Send a Raven)
+       ========================================================================== -->
+  <section id="raven" class="section-wrapper contact-section">
+    <div class="realm-container">
+      
+      <!-- Section Header -->
+      <div class="section-header fade-up">
+        <div class="section-tag">Chapter III</div>
+        <h2 class="section-title">Send a Raven</h2>
+        <div class="section-divider">
+          <span class="divider-line"></span>
+          <svg class="divider-sigil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+          <span class="divider-line"></span>
+        </div>
+        <p class="section-subtitle">Whether seeking an alliance for a software project, discussing AI frontiers, or exchanging cinematic loreâ€”dispatch your parchment.</p>
+      </div>
+
+      <!-- Obsidian Parchment Card -->
+      <div class="raven-scroll-card fade-up">
+        
+        <!-- Dragon Wax Seal Element -->
+        <div class="wax-seal" title="Royal House Seal">
+          <svg class="seal-icon" viewBox="0 0 24 24" fill="currentColor">
+            <!-- Heraldic Three-Headed Dragon Crest Style -->
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+        </div>
+
+        <!-- Fast Communication Channels (Email & GitHub) -->
+        <div class="contact-channels">
+          
+          <!-- Email Channel -->
+          <a href="mailto:shubhamsharma572007@gmail.com" class="channel-card" id="copy-email-btn" data-original-hint="Dispatch Direct Raven">
+            <div class="channel-icon-wrap" aria-hidden="true">
+              <!-- Raven / Quill Email SVG -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="channel-info">
+              <div class="channel-label">Official Raven Courier (Email)</div>
+              <div class="channel-value">shubhamsharma572007@gmail.com</div>
+              <div class="channel-action-hint">Click to Dispatch or Copy &rarr;</div>
+            </div>
+          </a>
+
+          <!-- GitHub Channel -->
+          <a href="https://github.com/Shubham-577" target="_blank" rel="noopener noreferrer" class="channel-card">
+            <div class="channel-icon-wrap" aria-hidden="true">
+              <!-- Official GitHub Crest SVG -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </div>
+            <div class="channel-info">
+              <div class="channel-label">The Digital Armory (GitHub)</div>
+              <div class="channel-value">github.com/Shubham-577</div>
+              <div class="channel-action-hint">Explore Repositories &rarr;</div>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Raven Dispatch Interactive Form -->
+        <form id="raven-form" class="raven-form" novalidate>
+          <div class="form-group-row">
+            <div class="form-control">
+              <label for="sender-name" class="form-label">Your Name / Title</label>
+              <input type="text" id="sender-name" class="form-input" placeholder="e.g. Lord Tyrion or Lady Arya" required>
+            </div>
+            <div class="form-control">
+              <label for="sender-email" class="form-label">Return Raven (Your Email)</label>
+              <input type="email" id="sender-email" class="form-input" placeholder="e.g. raven@winterfell.org" required>
+            </div>
+          </div>
+
+          <div class="form-control" style="margin-bottom: 1.5rem;">
+            <label for="sender-realm" class="form-label">Affiliation / Organization</label>
+            <input type="text" id="sender-realm" class="form-input" placeholder="e.g. Citadel of Tech, Startup Realm, Independent Explorer">
+          </div>
+
+          <div class="form-control">
+            <label for="sender-scroll" class="form-label">Message Scroll (Inscribe your words)</label>
+            <textarea id="sender-scroll" class="form-textarea" placeholder="Inscribe your thoughts, proposed alliance, or inquiries here..." required></textarea>
+          </div>
+
+          <div class="form-submit-row">
+            <span id="form-status" class="form-status"></span>
+            <button type="submit" class="btn-valyrian">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+              </svg>
+              <span>Release The Raven</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       RAVEN FLIGHT CONFIRMATION MODAL
+       ========================================================================== -->
+  <div id="raven-modal" class="raven-flight-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="raven-modal-card">
+      <!-- Animated Flying Raven SVG -->
+      <svg class="raven-flight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        <path d="M15 15l4 4"/>
+      </svg>
+      <h3 id="modal-title" class="raven-modal-title">The Raven Takes Flight</h3>
+      <p class="raven-modal-desc">
+        Your scroll has been sealed with dragon wax. It flies swiftly to <strong style="color:var(--fire-amber);">shubhamsharma572007@gmail.com</strong>. May the winds carry your words safely, <span id="modal-sender-name" style="color:var(--ice-core);">Traveler</span>.
+      </p>
+      
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <button id="launch-mail-client" class="btn-valyrian" style="padding:0.75rem 1.5rem; font-size:0.75rem;">
+          <span>Open Email Client</span>
+        </button>
+        <button id="raven-modal-close" class="btn-ice" style="padding:0.75rem 1.5rem; font-size:0.75rem;">
+          <span>Close Scroll</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="realm-footer">
+    <div class="realm-container">
+      <p class="motto-banner">
+        <span>Valar Morghulis</span> &bull; <span>Valar Dohaeris</span>
+      </p>
+      <p class="footer-copy">
+        Handcrafted in dark obsidian, stark ice, and dragonfire &bull; Designed &amp; Engineered by <strong>Shubham Sharma</strong> &copy; 2026
+      </p>
+      <div>
+        <a href="#iron-throne" class="footer-back-to-top">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"/>
+          </svg>
+          <span>Return To The Iron Throne</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript Interaction Engine -->
+  <script>
+/**
+ * ==========================================================================
+ * A SONG OF ICE AND CODE - PORTFOLIO INTERACTION ENGINE
+ * Theme: Game of Thrones / Cinematic Ice & Fire
+ * Author: Shubham Sharma
+ * ==========================================================================
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initParticleCanvas();
+  initScrollAnimations();
+  initNavigation();
+  initRavenForm();
+  initClipboardFeatures();
+  initAudioDesign();
+});
+
+/* ==========================================================================
+   1. DUAL PARTICLE ENGINE ("A Song of Ice and Fire")
+   Simulates gently falling snow crystals and rising dragon embers
+   ========================================================================== */
+function initParticleCanvas() {
+  const canvas = document.getElementById('ambient-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  let width = (canvas.width = window.innerWidth);
+  let height = (canvas.height = window.innerHeight);
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  // Calculate particle density based on screen dimensions
+  const isMobile = window.innerWidth < 768;
+  const snowCount = isMobile ? 35 : 75;
+  const emberCount = isMobile ? 25 : 55;
+
+  const particles = [];
+
+  // Snow Particle Class (Ice of Winter)
+  class SnowFlake {
+    constructor() {
+      this.reset(true);
+    }
+
+    reset(initial = false) {
+      this.x = Math.random() * width;
+      this.y = initial ? Math.random() * height : -10;
+      this.radius = Math.random() * 2.2 + 0.8;
+      this.speedY = Math.random() * 0.9 + 0.4;
+      this.speedX = Math.random() * 0.6 - 0.3;
+      this.opacity = Math.random() * 0.6 + 0.2;
+      this.swing = Math.random() * 2;
+      this.swingSpeed = Math.random() * 0.02 + 0.01;
+    }
+
+    update() {
+      this.swing += this.swingSpeed;
+      this.x += Math.sin(this.swing) * 0.5 + this.speedX;
+      this.y += this.speedY;
+
+      if (this.y > height + 10 || this.x < -10 || this.x > width + 10) {
+        this.reset();
+      }
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(180, 235, 255, ${this.opacity})`;
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = 'rgba(122, 229, 255, 0.6)';
+      ctx.fill();
+    }
+  }
+
+  // Ember Particle Class (Fire & Blood)
+  class EmberParticle {
+    constructor() {
+      this.reset(true);
+    }
+
+    reset(initial = false) {
+      this.x = Math.random() * width;
+      this.y = initial ? Math.random() * height : height + 15;
+      this.radius = Math.random() * 2.4 + 1;
+      this.speedY = -(Math.random() * 1.2 + 0.6);
+      this.speedX = (Math.random() - 0.5) * 0.8;
+      this.opacity = Math.random() * 0.85 + 0.15;
+      this.flickerSpeed = Math.random() * 0.04 + 0.02;
+      this.hue = Math.random() > 0.4 ? 30 : 12; // Gold/Amber or Deep Fire Orange
+    }
+
+    update() {
+      this.y += this.speedY;
+      this.x += this.speedX + Math.sin(this.y * 0.02) * 0.4;
+      this.opacity -= 0.0035;
+
+      if (this.y < -20 || this.opacity <= 0) {
+        this.reset();
+      }
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${this.hue}, 100%, 65%, ${Math.max(0, this.opacity)})`;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = `hsla(${this.hue}, 100%, 55%, 0.8)`;
+      ctx.fill();
+    }
+  }
+
+  // Initialize particles
+  for (let i = 0; i < snowCount; i++) particles.push(new SnowFlake());
+  for (let i = 0; i < emberCount; i++) particles.push(new EmberParticle());
+
+  // Render Loop
+  let animationFrameId;
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+      particles[i].draw();
+    }
+
+    animationFrameId = requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Pause rendering when document tab is hidden to conserve GPU/battery
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(animationFrameId);
+    } else {
+      animate();
+    }
+  });
+}
+
+/* ==========================================================================
+   2. SCROLL ANIMATIONS (Intersection Observer)
+   ========================================================================== */
+function initScrollAnimations() {
+  const revealElements = document.querySelectorAll('.fade-up, .fade-in, .fade-left, .fade-right');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -60px 0px',
+    threshold: 0.15
+  };
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  revealElements.forEach(el => revealObserver.observe(el));
+}
+
+/* ==========================================================================
+   3. NAVIGATION & SCROLLSPY
+   ========================================================================== */
+function initNavigation() {
+  const nav = document.querySelector('.realm-nav');
+  const mobileToggle = document.querySelector('.mobile-toggle');
+  const navLinksList = document.querySelector('.nav-links');
+  const links = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id]');
+
+  // Scroll header styling
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+
+    // Scrollspy active state
+    let currentId = '';
+    const scrollPos = window.scrollY + 200;
+
+    sections.forEach(section => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      if (scrollPos >= top && scrollPos < top + height) {
+        currentId = section.getAttribute('id');
+      }
+    });
+
+    links.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${currentId}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Mobile drawer toggle
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', () => {
+      navLinksList.classList.toggle('open');
+      const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+      mobileToggle.setAttribute('aria-expanded', !expanded);
+    });
+
+    // Close on link click
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinksList.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+}
+
+/* ==========================================================================
+   4. SEND A RAVEN (Interactive Contact Experience)
+   ========================================================================== */
+function initRavenForm() {
+  const form = document.getElementById('raven-form');
+  const modal = document.getElementById('raven-modal');
+  const modalClose = document.getElementById('raven-modal-close');
+  const statusEl = document.getElementById('form-status');
+
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('sender-name').value.trim();
+    const email = document.getElementById('sender-email').value.trim();
+    const realm = document.getElementById('sender-realm').value.trim() || 'The Known Realm';
+    const scroll = document.getElementById('sender-scroll').value.trim();
+
+    if (!name || !email || !scroll) {
+      alert('Please inscribe all required parchment fields before releasing the raven.');
+      return;
+    }
+
+    // Play blade chime sound if enabled
+    playValyrianChime();
+
+    // Trigger Raven Flight modal
+    if (modal) {
+      const recipientNameEl = document.getElementById('modal-sender-name');
+      if (recipientNameEl) recipientNameEl.textContent = name;
+      modal.classList.add('active');
+    }
+
+    // Create a pre-filled mailto anchor fallback
+    const subject = encodeURIComponent(`Raven dispatched from ${name} [${realm}]`);
+    const body = encodeURIComponent(`From: ${name} (${email})\nRealm: ${realm}\n\nMessage:\n${scroll}`);
+    const mailtoUrl = `mailto:shubhamsharma572007@gmail.com?subject=${subject}&body=${body}`;
+
+    // Reset Form
+    form.reset();
+
+    // Attach mailto trigger to modal primary action
+    const directClientBtn = document.getElementById('launch-mail-client');
+    if (directClientBtn) {
+      directClientBtn.onclick = () => {
+        window.location.href = mailtoUrl;
+      };
+    }
+  });
+
+  if (modalClose) {
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+  }
+
+  // Close modal when clicking outside
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  }
+}
+
+/* ==========================================================================
+   5. CLIPBOARD QUICK-ACTIONS
+   ========================================================================== */
+function initClipboardFeatures() {
+  const copyBtn = document.getElementById('copy-email-btn');
+  const emailText = 'shubhamsharma572007@gmail.com';
+
+  if (!copyBtn) return;
+
+  copyBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(emailText).then(() => {
+      const originalText = copyBtn.getAttribute('data-original-hint') || copyBtn.innerText;
+      copyBtn.innerText = 'âœ“ RAVEN SCROLL COPIED!';
+      copyBtn.style.color = 'var(--ice-core)';
+      
+      playValyrianChime();
+
+      setTimeout(() => {
+        copyBtn.innerText = originalText;
+        copyBtn.style.color = '';
+      }, 3000);
+    }).catch(() => {
+      // Fallback
+      window.location.href = `mailto:${emailText}`;
+    });
+  });
+}
+
+/* ==========================================================================
+   6. ATMOSPHERIC SOUND DESIGN (Web Audio API)
+   Generates a metallic Valyrian blade shimmer tone on interaction
+   ========================================================================== */
+let audioCtx = null;
+let soundEnabled = false;
+
+function initAudioDesign() {
+  const soundToggle = document.getElementById('sound-toggle');
+  if (!soundToggle) return;
+
+  soundToggle.addEventListener('click', () => {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+    }
+
+    soundEnabled = !soundEnabled;
+    soundToggle.setAttribute('aria-pressed', soundEnabled);
+    
+    const icon = soundToggle.querySelector('svg');
+    if (soundEnabled) {
+      soundToggle.classList.add('sound-on');
+      soundToggle.title = 'Mute Valyrian Steel Sounds';
+      playValyrianChime();
+    } else {
+      soundToggle.classList.remove('sound-on');
+      soundToggle.title = 'Enable Valyrian Steel Sounds';
+    }
+  });
+}
+
+function playValyrianChime() {
+  if (!soundEnabled || !audioCtx) return;
+
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+
+  const now = audioCtx.currentTime;
+  
+  // Shimmering blade harmonic oscillators
+  const osc1 = audioCtx.createOscillator();
+  const osc2 = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+
+  osc1.type = 'sine';
+  osc1.frequency.setValueAtTime(880, now); // A5 note
+  osc1.frequency.exponentialRampToValueAtTime(1760, now + 0.15); // Glides to A6
+  osc1.frequency.exponentialRampToValueAtTime(440, now + 1.2);
+
+  osc2.type = 'triangle';
+  osc2.frequency.setValueAtTime(1320, now); // E6
+  osc2.frequency.exponentialRampToValueAtTime(660, now + 1.0);
+
+  gainNode.gain.setValueAtTime(0.12, now);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+
+  osc1.connect(gainNode);
+  osc2.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+
+  osc1.start(now);
+  osc2.start(now);
+  osc1.stop(now + 1.2);
+  osc2.stop(now + 1.2);
+}
+
+</script>
+</body>
+</html>

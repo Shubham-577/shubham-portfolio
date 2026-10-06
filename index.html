@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shubham Sharma — Computer Science Student, AI & Software Developer. A Song of Ice and Code Portfolio.">
+  <title>Shubham Sharma | A Song of Ice and Code</title>
+  
+  <!-- Favicon / Sigil Icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 5 L90 25 L90 75 L50 95 L10 75 L10 25 Z' fill='%230e131d' stroke='%237ae5ff' stroke-width='4'/><path d='M50 20 L50 80 M30 40 L70 40 M35 60 L65 60' stroke='%23ff9d3b' stroke-width='3'/></svg>">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Fullscreen Ambient Canvas: Ice Snow & Dragonfire Embers -->
+  <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Atmospheric Vignette & Fog Gradient -->
+  <div class="vignette-overlay" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <nav class="realm-nav" aria-label="Main Navigation">
+    <a href="#iron-throne" class="nav-brand">
+      <!-- House Sigil Icon -->
+      <svg class="brand-sigil" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="20,2 38,12 38,28 20,38 2,28 2,12" stroke="currentColor" stroke-width="2" fill="rgba(14, 20, 30, 0.8)"/>
+        <path d="M20 7 V33 M10 16 H30 M13 24 H27" stroke="#ff9d3b" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="3" fill="#7ae5ff"/>
+      </svg>
+      <span class="brand-title">House Sharma</span>
+    </a>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+      <li><a href="#iron-throne" class="nav-link active">The Throne</a></li>
+      <li><a href="#lore" class="nav-link">The Lore</a></li>
+      <li><a href="#strategist" class="nav-link">The Strategist</a></li>
+      <li><a href="#raven" class="nav-link">Send a Raven</a></li>
+      <li>
+        <!-- Ambient Sound Effect Toggle -->
+        <button id="sound-toggle" class="audio-toggle-btn" title="Enable Valyrian Soundscapes" aria-pressed="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+      </li>
+    </ul>
+
+    <!-- Mobile Navigation Toggle -->
+    <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </nav>
+
+  <!-- ==========================================================================
+       1. HERO SECTION (The Iron Throne)
+       ========================================================================== -->
+  <header id="iron-throne" class="hero-section">
+    <div class="realm-container hero-content">
+      
+      <!-- Realm Crest Motto -->
+      <div class="hero-crest-badge fade-up">
+        <svg class="crest-sigil-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+        </svg>
+        <span class="crest-text">A Song of Ice and Code &bull; Winter is Here</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="hero-title fade-up delay-1">
+        <span class="name-ice">Shubham</span>
+        <span class="name-fire">Sharma</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <div class="hero-subtitle-box fade-up delay-2">
+        <p class="hero-subtitle">
+          Computer Science Student <span class="bullet">&bull;</span>
+          Tech Enthusiast <span class="bullet">&bull;</span>
+          AI &amp; Software Developer
+        </p>
+      </div>
+
+      <!-- Actions -->
+      <div class="hero-actions fade-up delay-3">
+        <a href="#lore" class="btn-valyrian">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15 8 21 9 17 14 18 20 12 17 6 20 7 14 3 9 9 8 12 2"/>
+          </svg>
+          <span>View My Realm</span>
+        </a>
+
+        <a href="#raven" class="btn-ice">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+          <span>Send a Raven</span>
+        </a>
+      </div>
+
+      <!-- Scroll Down Indicator -->
+      <a href="#lore" class="scroll-indicator fade-up delay-4" aria-label="Descend into the realm lore">
+        <span>Descend Into The Lore</span>
+        <svg class="blade-chevron" viewBox="0 0 24 24" fill="none">
+          <path d="M6 9L12 15L18 9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       2. ABOUT ME SECTION (The Lore)
+       ========================================================================== -->
+  <section id="lore" class="section-wrapper">
+    <div class="realm-container">
+      
+      <!-- Section Header -->
+      <div class="section-header fade-up">
+        <div class="section-tag">Chapter I</div>
+        <h2 class="section-title">The Lore</h2>
+        <div class="section-divider">
+          <span class="divider-line"></span>
+          <svg class="divider-sigil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L14 9H21L15.5 13.5L17.5 20.5L12 16L6.5 20.5L8.5 13.5L3 9H10L12 2Z"/>
+          </svg>
+          <span class="divider-line"></span>
+        </div>
+        <p class="section-subtitle">Forged in the academic citadels of Jaipur, dedicated to mastering the logic of cold silicon and neural dragonfire.</p>
+      </div>
+
+      <!-- Grid: Lore Narrative Slab & Pillar Cards -->
+      <div class="about-grid">
+        
+        <!-- Obsidian Stone Slab (Primary Narrative) -->
+        <article class="lore-card fade-left">
+          <!-- Runed Corner Accents -->
+          <span class="corner-ornament corner-tl"></span>
+          <span class="corner-ornament corner-tr"></span>
+          <span class="corner-ornament corner-bl"></span>
+          <span class="corner-ornament corner-br"></span>
+
+          <p class="lore-quote-lead">
+            "A mind needs code as a sword needs a whetstone, if it is to keep its edge."
+          </p>
+
+          <p class="lore-paragraph">
+            I am currently pursuing my <strong>Computer Science Core degree</strong> at <span class="highlight-ice">JECRC University, Jaipur</span>. I am a passionate tech enthusiast dedicated to forging robust software and exploring the uncharted territories of <span class="highlight-fire">AI development</span>. Beyond the code, I have a strong creative eye for <span class="highlight-ice">video editing</span>.
+          </p>
+
+          <p class="lore-paragraph">
+            Like a blacksmith hammering Valyrian steel, I treat every line of code as an artifact of precision. From architecting responsive, high-performance web systems to engineering intelligent algorithmic models, I bridge the raw structural discipline of the North with the fiery ambition of creative visual storytelling.
+          </p>
+
+          <div style="margin-top: 2rem;">
+            <a href="#strategist" class="btn-ice" style="padding: 0.75rem 1.6rem; font-size: 0.78rem;">
+              <span>Inspect The Strategy</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Pillars of Mastery -->
+        <div class="lore-pillars fade-right">
+          
+          <!-- Pillar 1: The Citadel -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">The Citadel</h3>
+            <p class="pillar-desc">JECRC University, Jaipur &bull; B.Tech Computer Science Core Foundations.</p>
+          </div>
+
+          <!-- Pillar 2: AI Frontiers -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+                <rect x="9" y="9" width="6" height="6"/>
+                <line x1="9" y1="1" x2="9" y2="4"/>
+                <line x1="15" y1="1" x2="15" y2="4"/>
+                <line x1="9" y1="20" x2="9" y2="23"/>
+                <line x1="15" y1="20" x2="15" y2="23"/>
+                <line x1="20" y1="9" x2="23" y2="9"/>
+                <line x1="20" y1="14" x2="23" y2="14"/>
+                <line x1="1" y1="9" x2="4" y2="9"/>
+                <line x1="1" y1="14" x2="4" y2="14"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">AI &amp; Neural Craft</h3>
+            <p class="pillar-desc">Forging machine intelligence, neural exploration, and smart automated agents.</p>
+          </div>
+
+          <!-- Pillar 3: Software Forge -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+                <line x1="14" y1="4" x2="10" y2="20"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Valyrian Code</h3>
+            <p class="pillar-desc">Full-stack resilience, scalable logic, and robust architectural frameworks.</p>
+          </div>
+
+          <!-- Pillar 4: Visual Storytelling -->
+          <div class="pillar-card">
+            <div class="pillar-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="10 8 16 12 10 16 10 8"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Visual Direction</h3>
+            <p class="pillar-desc">Cinematic video editing, pacing, color grading, and evocative audiovisual impact.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       3. INTERESTS & HOBBIES SECTION (The Strategist)
+       ========================================================================== */ -->
+  <section id="strategist" class="section-wrapper">
+    <div class="realm-container">
+      
+      <!-- Section Header -->
+      <div class="section-header fade-up">
+        <div class="section-tag">Chapter II</div>
+        <h2 class="section-title">The Strategist</h2>
+        <div class="section-divider">
+          <span class="divider-line"></span>
+          <svg class="divider-sigil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L15 8L22 9L17 14L18 21L12 17.5L6 21L7 14L2 9L9 8L12 2Z"/>
+          </svg>
+          <span class="divider-line"></span>
+        </div>
+        <p class="section-subtitle">Tactics are forged on the board; imagination is unlocked through the silver screen.</p>
+      </div>
+
+      <!-- Tactics & Hobbies Grid -->
+      <div class="tactics-grid">
+        
+        <!-- Card 1: Chess & Strategy -->
+        <article class="tactic-card tactic-chess fade-up delay-1">
+          <div class="tactic-header">
+            <div class="tactic-sigil" aria-hidden="true">
+              <!-- Knight Chess Piece SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 20H5v-2c0-.6.4-1 1-1h1v-2c0-.7.3-1.4.8-1.9L11 10.5V9a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1l1.2 1.2c.5.5.8 1.2.8 1.9v2h1c.6 0 1 .4 1 1v2z"/>
+                <path d="M10 6c0-1.7 1.3-3 3-3s3 1.3 3 3"/>
+                <circle cx="12" cy="13" r="1"/>
+              </svg>
+            </div>
+            <span class="tactic-rank">Tactic &bull; 01</span>
+          </div>
+
+          <h3 class="tactic-title">The Grandmaster's Board</h3>
+          <div class="tactic-alias">Strategic Thinking &amp; Chess</div>
+
+          <p class="tactic-desc">
+            I hone my strategic thinking and foresight through <strong>Chess</strong>. On the 64 squares, every move is calculated multiple steps in advance. Like debugging intricate system logic, chess teaches patience, spatial pattern recognition, resource trade-offs, and how to turn defensive pressure into an unstoppable offensive endgame.
+          </p>
+
+          <div class="tactic-traits">
+            <span class="trait-tag">Deep Foresight</span>
+            <span class="trait-tag">Tactical Trade-offs</span>
+            <span class="trait-tag">Endgame Mastery</span>
+          </div>
+        </article>
+
+        <!-- Card 2: Cinema & Visual Storytelling -->
+        <article class="tactic-card tactic-cinema fade-up delay-2">
+          <div class="tactic-header">
+            <div class="tactic-sigil" aria-hidden="true">
+              <!-- Film Reel / Cinema SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                <line x1="7" y1="2" x2="7" y2="22"/>
+                <line x1="17" y1="2" x2="17" y2="22"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <line x1="2" y1="7" x2="7" y2="7"/>
+                <line x1="2" y1="17" x2="7" y2="17"/>
+                <line x1="17" y1="17" x2="22" y2="17"/>
+                <line x1="17" y1="7" x2="22" y2="7"/>
+              </svg>
+            </div>
+            <span class="tactic-rank">Lore &bull; 02</span>
+          </div>
+
+          <h3 class="tactic-title">The Chronicler's Lens</h3>
+          <div class="tactic-alias">Cinema &amp; Visual Storytelling</div>
+
+          <p class="tactic-desc">
+            I study the nuanced art of <strong>visual storytelling by watching movies</strong>. Cinema is more than entertainment—it is a masterclass in framing, mood curation, visual metaphors, lighting balance, and emotional resonance. Deconstructing how legendary directors craft worlds fuels how I design rich, atmospheric user interfaces.
+          </p>
+
+          <div class="tactic-traits">
+            <span class="trait-tag">Narrative Pacing</span>
+            <span class="trait-tag">Atmospheric Lighting</span>
+            <span class="trait-tag">Cinematic Framing</span>
+          </div>
+        </article>
+
+        <!-- Card 3: Creative Video Editing -->
+        <article class="tactic-card tactic-editing fade-up delay-3">
+          <div class="tactic-header">
+            <div class="tactic-sigil" aria-hidden="true">
+              <!-- Video Editing Scissors / Razor Blade SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <line x1="20" y1="4" x2="8.12" y2="15.88"/>
+                <line x1="14.47" y1="14.48" x2="20" y2="20"/>
+                <line x1="8.12" y1="8.12" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <span class="tactic-rank">Craft &bull; 03</span>
+          </div>
+
+          <h3 class="tactic-title">The Forge of Frames</h3>
+          <div class="tactic-alias">Video Editing &amp; Motion Design</div>
+
+          <p class="tactic-desc">
+            Equipped with a meticulous creative eye, I cut and assemble raw footage into rhythmic visual narratives. From precise jump cuts to evocative color grades and sound design synchronization, video editing is where algorithmic precision meets unfiltered artistic storytelling.
+          </p>
+
+          <div class="tactic-traits">
+            <span class="trait-tag">Dynamic Pacing</span>
+            <span class="trait-tag">Color Grading</span>
+            <span class="trait-tag">Sound Synthesis</span>
+          </div>
+        </article>
+
+        <!-- Card 4: AI & Software Development -->
+        <article class="tactic-card tactic-ai fade-up delay-4">
+          <div class="tactic-header">
+            <div class="tactic-sigil" aria-hidden="true">
+              <!-- Arcane Matrix / AI Rune SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <span class="tactic-rank">Sorcery &bull; 04</span>
+          </div>
+
+          <h3 class="tactic-title">The Arcane Algorithms</h3>
+          <div class="tactic-alias">AI Exploration &amp; Software</div>
+
+          <p class="tactic-desc">
+            Pushing the boundaries of the digital realm through machine learning models, intelligent heuristics, and full-stack software development. Constantly analyzing novel architectures to forge resilient, autonomous applications that serve real-world quests.
+          </p>
+
+          <div class="tactic-traits">
+            <span class="trait-tag">Autonomous Systems</span>
+            <span class="trait-tag">Machine Learning</span>
+            <span class="trait-tag">Clean Architecture</span>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       4. CONTACT SECTION (Send a Raven)
+       ========================================================================== -->
+  <section id="raven" class="section-wrapper contact-section">
+    <div class="realm-container">
+      
+      <!-- Section Header -->
+      <div class="section-header fade-up">
+        <div class="section-tag">Chapter III</div>
+        <h2 class="section-title">Send a Raven</h2>
+        <div class="section-divider">
+          <span class="divider-line"></span>
+          <svg class="divider-sigil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+          <span class="divider-line"></span>
+        </div>
+        <p class="section-subtitle">Whether seeking an alliance for a software project, discussing AI frontiers, or exchanging cinematic lore—dispatch your parchment.</p>
+      </div>
+
+      <!-- Obsidian Parchment Card -->
+      <div class="raven-scroll-card fade-up">
+        
+        <!-- Dragon Wax Seal Element -->
+        <div class="wax-seal" title="Royal House Seal">
+          <svg class="seal-icon" viewBox="0 0 24 24" fill="currentColor">
+            <!-- Heraldic Three-Headed Dragon Crest Style -->
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+        </div>
+
+        <!-- Fast Communication Channels (Email & GitHub) -->
+        <div class="contact-channels">
+          
+          <!-- Email Channel -->
+          <a href="mailto:shubhamsharma572007@gmail.com" class="channel-card" id="copy-email-btn" data-original-hint="Dispatch Direct Raven">
+            <div class="channel-icon-wrap" aria-hidden="true">
+              <!-- Raven / Quill Email SVG -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="channel-info">
+              <div class="channel-label">Official Raven Courier (Email)</div>
+              <div class="channel-value">shubhamsharma572007@gmail.com</div>
+              <div class="channel-action-hint">Click to Dispatch or Copy &rarr;</div>
+            </div>
+          </a>
+
+          <!-- GitHub Channel -->
+          <a href="https://github.com/Shubham-577" target="_blank" rel="noopener noreferrer" class="channel-card">
+            <div class="channel-icon-wrap" aria-hidden="true">
+              <!-- Official GitHub Crest SVG -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </div>
+            <div class="channel-info">
+              <div class="channel-label">The Digital Armory (GitHub)</div>
+              <div class="channel-value">github.com/Shubham-577</div>
+              <div class="channel-action-hint">Explore Repositories &rarr;</div>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Raven Dispatch Interactive Form -->
+        <form id="raven-form" class="raven-form" novalidate>
+          <div class="form-group-row">
+            <div class="form-control">
+              <label for="sender-name" class="form-label">Your Name / Title</label>
+              <input type="text" id="sender-name" class="form-input" placeholder="e.g. Lord Tyrion or Lady Arya" required>
+            </div>
+            <div class="form-control">
+              <label for="sender-email" class="form-label">Return Raven (Your Email)</label>
+              <input type="email" id="sender-email" class="form-input" placeholder="e.g. raven@winterfell.org" required>
+            </div>
+          </div>
+
+          <div class="form-control" style="margin-bottom: 1.5rem;">
+            <label for="sender-realm" class="form-label">Affiliation / Organization</label>
+            <input type="text" id="sender-realm" class="form-input" placeholder="e.g. Citadel of Tech, Startup Realm, Independent Explorer">
+          </div>
+
+          <div class="form-control">
+            <label for="sender-scroll" class="form-label">Message Scroll (Inscribe your words)</label>
+            <textarea id="sender-scroll" class="form-textarea" placeholder="Inscribe your thoughts, proposed alliance, or inquiries here..." required></textarea>
+          </div>
+
+          <div class="form-submit-row">
+            <span id="form-status" class="form-status"></span>
+            <button type="submit" class="btn-valyrian">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+              </svg>
+              <span>Release The Raven</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       RAVEN FLIGHT CONFIRMATION MODAL
+       ========================================================================== -->
+  <div id="raven-modal" class="raven-flight-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="raven-modal-card">
+      <!-- Animated Flying Raven SVG -->
+      <svg class="raven-flight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        <path d="M15 15l4 4"/>
+      </svg>
+      <h3 id="modal-title" class="raven-modal-title">The Raven Takes Flight</h3>
+      <p class="raven-modal-desc">
+        Your scroll has been sealed with dragon wax. It flies swiftly to <strong style="color:var(--fire-amber);">shubhamsharma572007@gmail.com</strong>. May the winds carry your words safely, <span id="modal-sender-name" style="color:var(--ice-core);">Traveler</span>.
+      </p>
+      
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <button id="launch-mail-client" class="btn-valyrian" style="padding:0.75rem 1.5rem; font-size:0.75rem;">
+          <span>Open Email Client</span>
+        </button>
+        <button id="raven-modal-close" class="btn-ice" style="padding:0.75rem 1.5rem; font-size:0.75rem;">
+          <span>Close Scroll</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="realm-footer">
+    <div class="realm-container">
+      <p class="motto-banner">
+        <span>Valar Morghulis</span> &bull; <span>Valar Dohaeris</span>
+      </p>
+      <p class="footer-copy">
+        Handcrafted in dark obsidian, stark ice, and dragonfire &bull; Designed &amp; Engineered by <strong>Shubham Sharma</strong> &copy; 2026
+      </p>
+      <div>
+        <a href="#iron-throne" class="footer-back-to-top">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"/>
+          </svg>
+          <span>Return To The Iron Throne</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript Interaction Engine -->
+  <script src="script.js"></script>
+</body>
+</html>
